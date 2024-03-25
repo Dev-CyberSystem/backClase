@@ -24,17 +24,29 @@ app.use("/api", userRouter); // usamos el router que creamos en el archivo userR
 app.use("/api", comprobacionJwt, privateRouter ); // usamos el router que creamos en el archivo userRouter.js para manejar las peticiones a la raíz del servidor
 // Servidor
 
-const initApp = () => {
-  // creamos una función para inicializar la aplicación
-  try {
-    connectDB(); // nos conectamos a la base de datos
-    app.listen(PORT, () => {
-      // le decimos a la aplicación que escuche en el puerto 3000
-      console.log("Server is running on port 3000"); // si el servidor se inicia correctamente, mostramos un mensaje en la consola
-    });
-  } catch (error) {
-    console.log(error);
-  }
-};
+app.get("/", (req, res) => {
+  // definimos una ruta que responde a peticiones GET en la raíz del servidor
+  res.send("Hello World!"); // respondemos con un mensaje de texto
+});
 
-initApp(); // start the app
+app.listen(PORT, () => {
+  connectDB(); // nos conectamos a la base de datos
+  // le decimos a la aplicación que escuche en el puerto 3000
+  console.log("Server is running on port 3000"); // si el servidor se inicia correctamente, mostramos un mensaje en la consola
+});
+
+
+// const initApp = () => {
+//   // creamos una función para inicializar la aplicación
+//   try {
+//     connectDB(); // nos conectamos a la base de datos
+//     app.listen(PORT, () => {
+//       // le decimos a la aplicación que escuche en el puerto 3000
+//       console.log("Server is running on port 3000"); // si el servidor se inicia correctamente, mostramos un mensaje en la consola
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// initApp(); // start the app
