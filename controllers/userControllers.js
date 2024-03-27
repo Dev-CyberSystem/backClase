@@ -43,10 +43,10 @@ const deleteUsuario = async (req, res) => {
 const updateUsuario = async (req, res) => {
   try {
     const { id } = req.params; // obtenemos el id del usuario a actualizar
-    const { nombre, apellido, email, admin } = req.body; // obtenemos el nombre y apellido del cuerpo de la petición
+    const { nombre, apellido, email, password, admin } = req.body; // obtenemos el nombre y apellido del cuerpo de la petición
     const usuario = await UsuariosModel.findByIdAndUpdate( // buscamos y actualizamos el usuario en la base de datos con el id y los datos obtenidos del cuerpo de la petición  
       id,
-      { nombre, apellido, email, admin },
+      { nombre, apellido, email, password, admin },
       { new: true } // con la opción new: true le decimos a mongoose que nos devuelva el usuario actualizado y no el usuario antes de actualizar.
 
     ); // buscamos y actualizamos el usuario en la base de datos
