@@ -1,28 +1,27 @@
 import jwt from "jsonwebtoken";
 const comprobacionJwt = (req, res, next) => {
-    // const token = req.header("auth-token"); // obtenemos el token de los headers
-    console.log(req.headers.authorization , "req.headers.authorization")
-    const token = req.headers.authorization
-    console.log(token, "token")
-    if (!token) {
-      return res.status(401).send("Acceso denegado no se proporciono un token");
-    }
-    try {
-      const verifyToken = jwt.verify(token, process.env.SECRET_KEY); // verificamos el token
-      req.usuario = verifyToken; // guardamos el usuario en el req
+  const token = req.headers.authorization;
 
-      if (verifyToken.admin) {
-        console.log("es admin");
-        next(); // llamamos al siguiente middleware
-      } else {
-        console.log("no es admin");
-        res.status(401).send("Acceso denegado no eres admin");
-      }
+  if (!token) {
+    return res.status(401).send("Acceso denegado, no se proporcionó un token");
+  }
 
-    } catch (error) {
-      res.status(400).send("Token no válido");
+  try {
+    const verifyToken = jwt.verify(token, process.env.SECRET_KEY);
+    req.usuario = verifyToken;
+
+    if (verifyToken.admin) {
+      console.log("es admin");
+      next();
+    } else {
+      console.log("no es admin");
+      return res.status(401).send("Acceso denegado, no eres admin");
     }
-  next(); // llamamos al siguiente middleware
+  } catch (error) {
+    console.error("Error al verificar el token:", error);
+    return res.status(401).send("Acceso denegado, token no válido");
+  }
 };
+
 
 export default comprobacionJwt; // exportamos el middleware para usarlo en otros archivos
