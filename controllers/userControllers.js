@@ -123,7 +123,8 @@ const loginUsuario = async (req, res) => {
       );
   
       // Enviar el token en la respuesta
-       res.header(token).json({ error: null, data: { token } }); // respondemos con el token creado en la respuesta de la petición POST a la ruta /login de la API o aplicación web  
+      res.header("Authorization", `Bearer ${token}`).json({ error: null, data: { token } });
+       // respondemos con el token creado en la respuesta de la petición POST a la ruta /login de la API o aplicación web  
       // res.send({ token }).json({ data: { token } });
     } catch (error) {
       console.log(error);
