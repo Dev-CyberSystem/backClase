@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 const comprobacionJwt = (req, res, next) => {
   const token = req.headers.authorization;
+  console.log(token, "<-----------------token")
 
   if (!token) {
     return res.status(401).send("Acceso denegado, no se proporcionó un token");
