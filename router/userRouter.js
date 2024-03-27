@@ -13,7 +13,7 @@ router.post("/registro", userControllers.registroUsuario);
 
 // Delete
 
-router.delete("/usuario/:id", userControllers.deleteUsuario);
+router.delete("/delete/:id", userControllers.deleteUsuario);
 
 // Put
 
